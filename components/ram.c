@@ -53,7 +53,8 @@
 		    != 1)
 			return NULL;
 
-		return fmt_human(total * 1024, 1024);
+		//return fmt_human(total * 1024, 1024);
+		return bprintf("%.1f", total/1048576.);
 	}
 
 	const char *
@@ -71,7 +72,8 @@
 			return NULL;
 
 		used = (total - free - buffers - cached);
-		return fmt_human(used * 1024, 1024);
+		//return fmt_human(used * 1024, 1024);
+		return bprintf("%4.1f", used/1048576.);
 	}
 #elif defined(__OpenBSD__)
 	#include <stdlib.h>

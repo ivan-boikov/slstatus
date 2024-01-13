@@ -86,7 +86,8 @@
 		if (get_swap_info(&total, NULL, NULL))
 			return NULL;
 
-		return fmt_human(total * 1024, 1024);
+		//return fmt_human(total * 1024, 1024);
+		return bprintf("%4.1f", total/1048576.);
 	}
 
 	const char *
@@ -97,7 +98,8 @@
 		if (get_swap_info(&total, &free, &cached))
 			return NULL;
 
-		return fmt_human((total - free - cached) * 1024, 1024);
+		//return fmt_human((total - free - cached) * 1024, 1024);
+		return bprintf("%4.1f", (total - free - cached)/1048576.);
 	}
 #elif defined(__OpenBSD__)
 	#include <stdlib.h>
