@@ -7,19 +7,22 @@
 #include "../util.h"
 
 #if defined(__linux__)
-	#define CPU_FREQ "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
-
 	const char *
 	cpu_freq(const char *unused)
 	{
-		uintmax_t freq;
+		char cpu[128];
+		unsigned int cores = 0;
+		uintmax_t freq, freq_sum = 0;
 
-		/* in kHz */
-		if (pscanf(CPU_FREQ, "%ju", &freq) != 1)
-			return NULL;
+		while (1) {
+			sprintf(cpu, "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cores);
+			if (pscanf(cpu, "%ju", &freq) != 1)
+				break;
+			freq_sum += freq;
+			cores++;
+		}
 
-		//return fmt_human(freq * 1000, 1000);
-		return bprintf("%.1f", freq/1e6);
+		return bprintf("%.1f", freq_sum/1e6/cores);
 	}
 
 	const char *
@@ -44,7 +47,7 @@
 		if (sum == 0)
 			return NULL;
 
-		return bprintf("%d", (int)(100 *
+		return bprintf("%4.1f", (float)(100.0 *
 		               ((b[0] + b[1] + b[2] + b[5] + b[6]) -
 		                (a[0] + a[1] + a[2] + a[5] + a[6])) / sum));
 	}
