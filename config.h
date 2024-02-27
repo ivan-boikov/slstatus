@@ -63,22 +63,18 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
-#define NET_INTERFACE "enp34s0"
 static const struct arg args[] = {
 	/* function format          argument */
-	{ mpd_track, "[%s",       "/tmp/mpd.playing"},
-	{ cat, " %3s%%]",         "/tmp/volume"},
-	//{ battery_perc, "[%s",   "BAT0"},
-	//{ battery_state, "%s]",   "BAT0"},
-	{ netspeed_rx, "[%7s ",  NET_INTERFACE },
-	{ netspeed_tx, "%7s",    NET_INTERFACE },
-	{ vpn_status, "%s",       NULL},
-	//{ wifi_perc, "%s",       NET_INTERFACE},
-	{ cpu_perc, "][%3s%%  ",  NULL },
+	{ mpd_track, "[%s",       "/tmp/mpd.playing" },
+	{ cat, " %3s%%]",         "/tmp/volume" },
+	// BATSTATE
+	// NETSPEED
+	{ vpn_status, "%s",       NULL },
+	{ cpu_perc, "[%3s%%  ",  NULL },
 	{ cpu_freq, "%s]",        NULL },
-	{ ram_used, "[%s/",       NULL},
-	{ ram_total, "%s ",      NULL},
-	{ swap_used, "%s/",       NULL},
-	{ swap_total, "%s] ",     NULL},
+	{ ram_used, "[%s/",       NULL },
+	{ ram_total, "%s ",      NULL },
+	{ swap_used, "%s/",       NULL },
+	{ swap_total, "%s] ",     NULL },
 	{ datetime, "%s",         "%F %T" },
 };

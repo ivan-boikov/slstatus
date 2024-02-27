@@ -14,7 +14,11 @@
 		unsigned int cores = 0;
 		uintmax_t freq, freq_sum = 0;
 
+#ifdef N_CORES
+		for (cores = 0; cores < N_CORES;) {
+#else
 		while (1) {
+#endif
 			sprintf(cpu, "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cores);
 			if (pscanf(cpu, "%ju", &freq) != 1)
 				break;
