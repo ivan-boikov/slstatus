@@ -1,9 +1,6 @@
 #!/bin/sh
 
 git checkout config.h
-git checkout components/cpu.c
-
-sed -i "2i #define N_CORES $(nproc --all)" components/cpu.c
 
 for BAT in /sys/class/power_supply/BAT*
 do
