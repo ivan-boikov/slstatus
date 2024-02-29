@@ -87,7 +87,7 @@
 			return NULL;
 
 		//return fmt_human(total * 1024, 1024);
-		return bprintf("%4.1f", total/1048576.);
+		return bprintf("%.1f", total/1048576.);
 	}
 
 	const char *
