@@ -13,7 +13,7 @@ do
 		CPUtemp="$f"
 	fi
 done
-sed -i "/cpu_perc/a\\\\t{ temp,           \"%s° \",        \"$CPUtemp\"}," config.h
+sed -i "/{ cpu_perc/a\\\\t{ temp,           \"%s° \",        \"$CPUtemp\"}," config.h
 
 # detect battery
 for BAT_path in `find /sys/class/power_supply -name BAT*`
