@@ -6,23 +6,23 @@
 #include "../slstatus.h"
 #include "../util.h"
 
+#define CPUS 12
+
 #if defined(__linux__)
 	const char *
 	cpu_freq(const char *unused)
 	{
-		char cpu[128];
 		unsigned int cores = 0;
 		uintmax_t freq, freq_sum = 0;
 
-		while (1) {
-			sprintf(cpu, "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cores);
-			if (pscanf(cpu, "%ju", &freq) != 1)
+		for (; cores < CPUS; ++cores) {
+			sprintf(buf, "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_cur_freq", cores);
+			if (pscanf(buf, "%ju", &freq) != 1)
 				break;
 			freq_sum += freq;
-			cores++;
 		}
 
-		return bprintf("%.1f", freq_sum/1e6/cores);
+		return bprintf("%.1f", freq_sum/1e6/CPUS);
 	}
 
 	const char *
