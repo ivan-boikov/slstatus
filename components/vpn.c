@@ -1,18 +1,16 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdint.h>
-#include <stdio.h>
-#include <string.h>
+#include <unistd.h>
 
 #include "../slstatus.h"
 #include "../util.h"
 
 const char *
-vpn_status(const char *unused)
+vpn_status(const char *path)
 {
-	char state[32];
-
-	if (pscanf("/sys/class/net/tun0/operstate", "%s", state) != 1)
+	if (access(path, F_OK) == 0) {
+		return bprintf("");
+	} else {
 		return bprintf("");
-
-	return bprintf("");
+	}
 }

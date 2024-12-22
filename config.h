@@ -69,7 +69,7 @@ static const struct arg args[] = {
 	{ cat,            "[%3s%%]",      "$XDG_RUNTIME_DIR/volume" },
 	// BATSTATE
 	// NETSPEED
-	{ vpn_status, "%s",       NULL },
+	{ vpn_status, "%s",       "/sys/class/net/tun0/operstate" },
 	{ cpu_perc, "[%3s%%  ",  NULL },
 	{ cpu_freq, "%s]",        NULL },
 	{ ram_used, "[%s/",       NULL },
