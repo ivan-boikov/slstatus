@@ -16,7 +16,7 @@ done
 sed -i "/cpu_perc/a\\\\t{ temp,           \"%s° \",        \"$CPUtemp\"}," config.h
 
 # detect battery
-for BAT_path in /sys/class/power_supply/BAT*
+for BAT_path in `find /sys/class/power_supply -name BAT*`
 do
 	BAT="$(basename "$BAT_path")"
 	sed -i "/BATSTATE/a\\\\t{ battery_state,  \"%s]\",          \"$BAT\"}," config.h
