@@ -65,8 +65,8 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ mpd_track, "[%s",       "/tmp/mpd.playing" },
-	{ cat, " %3s%%]",         "/tmp/volume" },
+	{ mpd_track,      "[%s]",         "$XDG_RUNTIME_DIR/mpd.playing" },
+	{ cat,            "[%3s%%]",      "$XDG_RUNTIME_DIR/volume" },
 	// BATSTATE
 	// NETSPEED
 	{ vpn_status, "%s",       NULL },

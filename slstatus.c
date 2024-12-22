@@ -54,6 +54,11 @@ main(int argc, char *argv[])
 	char status[MAXLEN];
 	const char *res;
 
+	char *XDG_RUNTIME_DIR = getenv("XDG_RUNTIME_DIR");
+	const char tok_XDG_RUNTIME_DIR[] = "$XDG_RUNTIME_DIR";
+	char fpath[1024];
+	char *arg;
+
 	sflag = 0;
 	ARGBEGIN {
 	case 'v':
@@ -87,7 +92,22 @@ main(int argc, char *argv[])
 
 		status[0] = '\0';
 		for (i = len = 0; i < LEN(args); i++) {
-			if (!(res = args[i].func(args[i].args)))
+
+			if (args[i].args) {
+				// replace $XDG_RUNTIME_DIR with cached env variable
+				strcpy(fpath, args[i].args);
+				arg = strstr(fpath, tok_XDG_RUNTIME_DIR); // arg acts as a temp var
+				if (arg) {
+					strcpy(arg, XDG_RUNTIME_DIR);
+					strcpy(arg + strlen(XDG_RUNTIME_DIR), args[i].args + strlen(tok_XDG_RUNTIME_DIR));
+				}
+				arg = fpath;
+			}
+			else {
+				arg = args[i].args;
+			}
+
+			if (!(res = args[i].func(arg)))
 				res = unknown_str;
 
 			if ((ret = esnprintf(status + len, sizeof(status) - len,
