@@ -90,6 +90,13 @@ main(int argc, char *argv[])
 		if (clock_gettime(CLOCK_MONOTONIC, &start) < 0)
 			die("clock_gettime:");
 
+		if (pscanf("/sys/class/power_supply/AC/online", "%ud", &interval) == 1)
+			interval = interval ? interval_perf : interval_psav;
+		else {
+			interval = interval_perf;
+		}
+		printf("Interval: %ud\n", interval);
+
 		status[0] = '\0';
 		for (i = len = 0; i < LEN(args); i++) {
 

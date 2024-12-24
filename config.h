@@ -1,7 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
 /* interval between updates (in ms) */
-const unsigned int interval = 1000;
+const unsigned int interval_perf = 1000; // performance
+const unsigned int interval_psav = 5000; // power save
+unsigned int interval;
 
 /* text to show if no value can be retrieved */
 static const char unknown_str[] = "n/a";
