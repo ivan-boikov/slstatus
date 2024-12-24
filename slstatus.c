@@ -95,7 +95,6 @@ main(int argc, char *argv[])
 		else {
 			interval = interval_perf;
 		}
-		printf("Interval: %ud\n", interval);
 
 		status[0] = '\0';
 		for (i = len = 0; i < LEN(args); i++) {
