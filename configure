@@ -35,8 +35,8 @@ fi
 WLAN="$(ip link | grep ': wlp' | cut -d':' -f2 | xargs)"
 if [ -n "$WLAN" ]; then
 	sed -i "/NETSPEED/a\\\\t{ netspeed_tx,    \"%7s]\",         \"$WLAN\"}," config.h
-	sed -i "/NETSPEED/a\\\\t{ netspeed_rx,    \"%7s \",        \"$WLAN\"}," config.h
-	sed -i "/NETSPEED/a\\\\t{ wifi_perc,      \"[%3s\",        \"$WLAN\"}," config.h
+	sed -i "/NETSPEED/a\\\\t{ netspeed_rx,    \"[%7s \",        \"$WLAN\"}," config.h
+	# sed -i "/NETSPEED/a\\\\t{ wifi_perc,      \"[%3s\",        \"$WLAN\"}," config.h
 fi
 
 sed -i "s/#define CPUS.*/#define CPUS $(nproc)/" components/cpu.c
