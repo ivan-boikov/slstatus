@@ -30,6 +30,7 @@
 	{
 		static long double a[7];
 		long double b[7], sum;
+		float res;
 
 		memcpy(b, a, sizeof(b));
 		/* cpu user nice system idle iowait irq softirq */
@@ -47,9 +48,16 @@
 		if (sum == 0)
 			return NULL;
 
-		return bprintf("%4.1f", (float)(100.0 *
-		               ((b[0] + b[1] + b[2] + b[5] + b[6]) -
-		                (a[0] + a[1] + a[2] + a[5] + a[6])) / sum));
+		res = (100.0 *
+				((b[0] + b[1] + b[2] + b[5] + b[6]) -
+				 (a[0] + a[1] + a[2] + a[5] + a[6])) / sum);
+
+		if (res < 0)
+			res = 0.0;
+		if (res >= 100.0)
+			res = 99.9;
+
+		return bprintf("%4.1f", res);
 	}
 #elif defined(__OpenBSD__)
 	#include <sys/param.h>
